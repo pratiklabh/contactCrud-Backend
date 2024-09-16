@@ -24,15 +24,15 @@ public class Contact implements Serializable {
     @NotEmpty(message = "name cannot be empty")
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Email(message = "Email must be a valid email address")
     @NotEmpty(message = "Email cannot be empty")
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String subject;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String message;
 
     public Long getId() {
