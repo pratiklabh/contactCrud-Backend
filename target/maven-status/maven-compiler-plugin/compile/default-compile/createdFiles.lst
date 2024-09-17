@@ -1,9 +1,12 @@
 com/syntech/contactcrud/repository/ContactRepository.class
-com/syntech/contactcrud/api/RestResponse.class
-com/syntech/contactcrud/resources/JakartaEE8Resource.class
+com/syntech/contactcrud/api/NumberRestApi.class
+com/syntech/contactcrud/repository/NumberRepository.class
 com/syntech/contactcrud/repository/UserRepository.class
 com/syntech/contactcrud/JakartaRestConfiguration.class
-com/syntech/contactcrud/api/ContactRestApi.class
 com/syntech/contactcrud/model/User.class
-com/syntech/contactcrud/api/UserRestApi.class
+com/syntech/contactcrud/model/Number.class
 com/syntech/contactcrud/model/Contact.class
+com/syntech/contactcrud/api/RestResponse.class
+com/syntech/contactcrud/resources/JakartaEE8Resource.class
+com/syntech/contactcrud/api/ContactRestApi.class
+com/syntech/contactcrud/api/UserRestApi.class
