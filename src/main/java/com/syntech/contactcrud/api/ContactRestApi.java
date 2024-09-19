@@ -42,13 +42,41 @@ public class ContactRestApi {
 //        }
 //    }
     
+    // for lazy.vue file (page and size ko adhar ma fetch garne)
+//    @GET
+//    public Response getContacts(
+//            @QueryParam("page") @DefaultValue("0") int page,
+//            @QueryParam("size") @DefaultValue("10") int size) {
+//        try {
+//            int first = page * size;
+//            List<Contact> contacts = contactRepository.getEntity(first, size, null, null);
+//
+//            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+//            for (Contact contact : contacts) {
+//                JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
+//                        .add("id", contact.getId())
+//                        .add("name", contact.getName())
+//                        .add("subject", contact.getSubject())
+//                        .add("email", contact.getEmail())
+//                        .add("message", contact.getMessage());
+//                arrayBuilder.add(objectBuilder);
+//            }
+//            JsonValue jsonResult = arrayBuilder.build();
+//            return RestResponse.responseBuilder("true", "200", "Contacts retrieved successfully", jsonResult);
+//        } catch (Exception e) {
+//            return RestResponse.responseBuilder("false", "500", "An error occurred", Json.createObjectBuilder().add("error", e.getMessage()).build());
+//        }
+//    }
+    
+    
+    
     @GET
     public Response getContacts(
-            @QueryParam("page") @DefaultValue("0") int page,
-            @QueryParam("size") @DefaultValue("10") int size) {
+            @QueryParam("start") int start,
+            @QueryParam("end") int end) {
         try {
-            int first = page * size;
-            List<Contact> contacts = contactRepository.getEntity(first, size, null, null);
+            // Calculate the start and size for pagination
+            List<Contact> contacts = contactRepository.getEntity(start, (end-start), null, null);
 
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
             for (Contact contact : contacts) {
@@ -60,13 +88,17 @@ public class ContactRestApi {
                         .add("message", contact.getMessage());
                 arrayBuilder.add(objectBuilder);
             }
+
             JsonValue jsonResult = arrayBuilder.build();
             return RestResponse.responseBuilder("true", "200", "Contacts retrieved successfully", jsonResult);
+
         } catch (Exception e) {
-            return RestResponse.responseBuilder("false", "500", "An error occurred", Json.createObjectBuilder().add("error", e.getMessage()).build());
+            return RestResponse.responseBuilder("false", "500", "An error occurred",
+                    Json.createObjectBuilder().add("error", e.getMessage()).build());
         }
     }
 
+    
     @GET
     @Path("/{id}")
     public Response getContactById(@PathParam("id") Long id) {
