@@ -14,7 +14,7 @@ public class Number implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private int age;
     private double decimals;
     private double currency;
@@ -25,7 +25,7 @@ public class Number implements Serializable{
     public Number() {
     }
 
-    public Number(int id, int age, double decimals, double currency, double preffix, double suffix, int button) {
+    public Number(Long id, int age, double decimals, double currency, double preffix, double suffix, int button) {
         this.id = id;
         this.age = age;
         this.decimals = decimals;
@@ -35,11 +35,11 @@ public class Number implements Serializable{
         this.button = button;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,13 +94,13 @@ public class Number implements Serializable{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + this.id;
-        hash = 47 * hash + this.age;
-        hash = 47 * hash + Objects.hashCode(this.decimals);
-        hash = 47 * hash + Objects.hashCode(this.currency);
-        hash = 47 * hash + Objects.hashCode(this.preffix);
-        hash = 47 * hash + Objects.hashCode(this.suffix);
-        hash = 47 * hash + this.button;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + this.age;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.decimals) ^ (Double.doubleToLongBits(this.decimals) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.currency) ^ (Double.doubleToLongBits(this.currency) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.preffix) ^ (Double.doubleToLongBits(this.preffix) >>> 32));
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.suffix) ^ (Double.doubleToLongBits(this.suffix) >>> 32));
+        hash = 79 * hash + this.button;
         return hash;
     }
 
@@ -116,26 +116,28 @@ public class Number implements Serializable{
             return false;
         }
         final Number other = (Number) obj;
-        if (this.id != other.id) {
+        if (this.age != other.age) {
             return false;
         }
-        if (this.age != other.age) {
+        if (Double.doubleToLongBits(this.decimals) != Double.doubleToLongBits(other.decimals)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.currency) != Double.doubleToLongBits(other.currency)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.preffix) != Double.doubleToLongBits(other.preffix)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.suffix) != Double.doubleToLongBits(other.suffix)) {
             return false;
         }
         if (this.button != other.button) {
             return false;
         }
-        if (!Objects.equals(this.decimals, other.decimals)) {
-            return false;
-        }
-        if (!Objects.equals(this.currency, other.currency)) {
-            return false;
-        }
-        if (!Objects.equals(this.preffix, other.preffix)) {
-            return false;
-        }
-        return Objects.equals(this.suffix, other.suffix);
+        return Objects.equals(this.id, other.id);
     }
+
+    
 
     
 

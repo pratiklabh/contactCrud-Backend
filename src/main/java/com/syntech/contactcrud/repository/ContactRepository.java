@@ -1,10 +1,15 @@
 package com.syntech.contactcrud.repository;
+
 import com.syntech.contactcrud.model.Contact;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.SortMeta;
 
 @Stateless
 public class ContactRepository {
@@ -51,4 +56,25 @@ public class ContactRepository {
                 .createQuery("SELECT c FROM Contact c", Contact.class)
                 .getResultList();
     }
+
+    public int countEntity(Map<String, FilterMeta> filters) {
+        
+        String jpql = "SELECT COUNT(c) FROM Contact c"; 
+        Long count = getEntityManager().createQuery(jpql, Long.class).getSingleResult();
+
+        return count.intValue();
+    }
+
+    public List<Contact> getEntity(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+    String jpql = "SELECT c FROM Contact c";
+    // Add filtering and sorting logic if needed
+    
+    TypedQuery<Contact> query = getEntityManager().createQuery(jpql, Contact.class);
+    query.setFirstResult(first);
+    query.setMaxResults(pageSize);
+
+    return query.getResultList();
+}
+
+
 }
